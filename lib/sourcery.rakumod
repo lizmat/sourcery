@@ -5,9 +5,9 @@ my sub invocant-capture(Str:D $invocant, Str:D $args) {
     ).EVAL
 }
 
-my sub do-sourcery($seq, $capture) {
+my sub do-sourcery(@blocks, $capture) {
     my $path := $*EXECUTABLE.parent.parent.parent.absolute ~ $*SPEC.dir-sep;
-    $seq.map: -> $block {
+    @blocks.map: -> $block {
         if $block.cando($capture) {
             my $file := $block.file;
             $file := $file.starts-with('SETTING::')
@@ -43,7 +43,7 @@ my sub sourcery(Str:D $call, :$defined) is export {
             invocant-capture($invocant, $args // "");
         }
 
-        do-sourcery $self.^can($method), $capture;
+        do-sourcery $self.^can($method).map(*.candidates.Slip), $capture;
     }
     else {              # assume sub call
         (my $name, my $args) = $call.split('(', 2);
@@ -59,7 +59,7 @@ my sub sourcery(Str:D $call, :$defined) is export {
 
 =head1 NAME
 
-sourcery - turn a sub / method call into file(s) / linenumbers(s)
+sourcery - Turn a sub / method call into file(s) / linenumbers(s)
 
 =head1 SYNOPSIS
 

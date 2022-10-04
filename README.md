@@ -3,7 +3,7 @@
 NAME
 ====
 
-sourcery - turn a sub / method call into file(s) / linenumbers(s)
+sourcery - Turn a sub / method call into file(s) / linenumbers(s)
 
 SYNOPSIS
 ========

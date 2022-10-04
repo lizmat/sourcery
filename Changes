@@ -2,5 +2,8 @@ Revision history for sourcery
 
 {{$NEXT}}
 
+0.0.2  2022-10-04T13:47:16+02:00
+    - Fix issue with multi method calls only seeing the proto
+
 0.0.1  2022-10-04T13:30:43+02:00
     - Initial version

@@ -1,7 +1,7 @@
 use Test;
 use sourcery;
 
-plan 3;
+plan 4;
 
 is-deeply sourcery("sourcery('foo')"), (
    $*PROGRAM.parent.sibling("lib").add("sourcery.rakumod").absolute => 27,
@@ -9,5 +9,6 @@ is-deeply sourcery("sourcery('foo')"), (
 
 is sourcery("Str.Int").elems,           1, 'does Any.Str give 1 location';
 is sourcery("Str.Int", :defined).elems, 2, 'does Any:D.Str give 2 locations';
+is sourcery('42.base("beer")').elems,   2, 'does 42.base("beer") give 2 locations';
 
 # vim: expandtab shiftwidth=4
