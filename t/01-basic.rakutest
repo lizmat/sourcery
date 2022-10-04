@@ -1,0 +1,10 @@
+use Test;
+use sourcery;
+
+plan 1;
+
+is-deeply sourcery("sourcery('foo')"), (
+   $*PROGRAM.parent.sibling("lib").add("sourcery.rakumod").absolute => 27,
+), 'did it find itself';
+
+# vim: expandtab shiftwidth=4
