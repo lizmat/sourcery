@@ -71,6 +71,8 @@ use sourcery;
 
 .say for sourcery 'say "foo"';  # show where strings are being said
 
+.say for sourcery "Str.Int", :defined;  # instantiate type object
+
 use Edit::Files;
 
 edit-files sourcery '42.base("beer")';  # go see where this easter egg lives
@@ -83,6 +85,11 @@ The sourcery module exports a single subroutine called C<sourcery>.  It
 converts a piece of code consisting of a subroutine or method call to zero
 or more file / line-number pairs.  Which can then be displayed or used
 as input to go inspect / edit those files.
+
+The C<sourcery> subroutine also takes a single named argument: C<:defined>.
+If specified, will instantiate any type object used as an invocant, so that
+it will match C<class:D:> constraints in dispatching (see e.g. the
+difference between C<"Str.Int"> and C<"Str.Int", :defined>.
 
 Inspired by Zoffix's L<CoreHackers::Sourcery|https://raku.land/zef:raku-community-modules/CoreHackers::Sourcery>
 module, with the following differences:
