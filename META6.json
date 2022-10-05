@@ -18,8 +18,11 @@
   ],
   "source-url": "https://github.com/lizmat/sourcery.git",
   "tags": [
+    "SOURCE",
+    "INTROSPECTION",
+    "TOOL"
   ],
   "test-depends": [
   ],
-  "version": "0.0.2"
+  "version": "0.0.3"
 }

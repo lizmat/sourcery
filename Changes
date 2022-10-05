@@ -2,6 +2,12 @@ Revision history for sourcery
 
 {{$NEXT}}
 
+0.0.3  2022-10-05T13:28:18+02:00
+    - Also allow "foo 42" and just "foo" for subroutines checks
+    - Add subroutine "needle" to provide needle for given code
+    - Make exporting of subs customizable
+    - Add some tags
+
 0.0.2  2022-10-04T13:47:16+02:00
     - Fix issue with multi method calls only seeing the proto
 

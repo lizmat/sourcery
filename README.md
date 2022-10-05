@@ -14,8 +14,10 @@ use sourcery;
 .say for sourcery '"42".Int';   # show where a Str gets converted to Int
 
 .say for sourcery 'say "foo"';  # show where strings are being said
+say needle 'say "foo"';         # 'sub say'
 
-.say for sourcery "Str.Int", :defined;  # instantiate type object
+.say for sourcery 'Str.Int', :defined;  # instantiate type object
+say needle 'Str.Int';           # 'method Int'
 
 use Edit::Files;
 
@@ -25,7 +27,21 @@ edit-files sourcery '42.base("beer")';  # go see where this easter egg lives
 DESCRIPTION
 ===========
 
-The sourcery module exports a single subroutine called `sourcery`. It converts a piece of code consisting of a subroutine or method call to zero or more file / line-number pairs. Which can then be displayed or used as input to go inspect / edit those files.
+The sourcery module exports a two subroutines:
+
+  * sourcery
+
+  * needle
+
+EXPORTED SUBROUTINES
+====================
+
+Both subroutines are exported by default.
+
+sourcery
+--------
+
+The `sourcery` subroutine converts a string consisting of the code of a subroutine or method call, to zero or more file / line-number pairs. Which can then be displayed or used as input to go inspect / edit those files.
 
 The `sourcery` subroutine also takes a single named argument: `:defined`. If specified, will instantiate any type object used as an invocant, so that it will match `class:D:` constraints in dispatching (see e.g. the difference between `"Str.Int"` and `"Str.Int", :defined`.
 
@@ -34,6 +50,22 @@ Inspired by Zoffix's [CoreHackers::Sourcery](https://raku.land/zef:raku-communit
   * generates local file locations instead of URLs
 
   * not limited to core code, could be used on any loaded codebase
+
+needle
+------
+
+The `needle` subroutine takes the same string as with `sourcery` but instead returns a string that can serve as a pattern for highlighting the actual sub / method in the file / line that is being returned.
+
+SELECTIVE IMPORTING
+===================
+
+```raku
+use sourcery <sourcery>;  # only export sub sourcery
+```
+
+By default all functions are exported. But you can limit this to the functions you actually need by specifying the names in the `use` statement.
+
+To prevent name collisions and/or import any subroutine with a more memorable name, one can use the "original-name:known-as" syntax. A semi-colon in a specified string indicates the name by which the subroutine is known in this distribution, followed by the name with which it will be known in the lexical context in which the `use` command is executed.
 
 CAVEATS
 =======
