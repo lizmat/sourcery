@@ -1,0 +1,13 @@
+use Test;
+use sourcery;
+
+plan 4;
+
+for ('("foo")', ' "foo"').map({ "sourcery$_" }) {
+    is-deeply sourcery($_), (
+       $*PROGRAM.parent.sibling("lib").add("sourcery.rakumod").absolute => 1,
+    ), "did it find itself with $_";
+    is needle($_), 'sub sourcery', "Did we get the right needle for $_";
+}
+
+# vim: expandtab shiftwidth=4

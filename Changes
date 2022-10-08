@@ -2,6 +2,11 @@ Revision history for sourcery
 
 {{$NEXT}}
 
+0.0.4  2022-10-08T23:56:33+02:00
+    - Make module remotely installable for normal users.  A number
+      of tests where depending on being the developer, basically,
+      so move those tests to the xt directory
+
 0.0.3  2022-10-05T13:28:18+02:00
     - Also allow "foo 42" and just "foo" for subroutines checks
     - Add subroutine "needle" to provide needle for given code
