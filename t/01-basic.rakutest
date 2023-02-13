@@ -3,10 +3,10 @@ use sourcery;
 
 plan 8;
 
-is sourcery("Str.Int").elems, 1,
-  'does Any.Str give 1 location';
-is needle("Str.Int"), 'method Int',
-  'does Any.Str give the right needle';
+is sourcery("Str.Numeric").elems, 1,
+  'does Str.Numeric give 1 location';
+is needle("Str.Numeric"), 'method Numeric',
+  'does Str.Numeric give the right needle';
 
 is sourcery("Str.Int", :defined).elems, 2,
   'does Any:D.Str give 2 locations';

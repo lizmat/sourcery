@@ -2,6 +2,11 @@ Revision history for sourcery
 
 {{$NEXT}}
 
+0.0.5  2023-02-13T18:06:38+01:00
+    - Make sure only unique locations are returned
+    - Fix tests now that Date.today.Int is a thing
+    - Update copyright year
+
 0.0.4  2022-10-08T23:56:33+02:00
     - Make module remotely installable for normal users.  A number
       of tests where depending on being the developer, basically,

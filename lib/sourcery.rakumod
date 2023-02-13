@@ -9,7 +9,7 @@ my sub sourcery(Str:D $call, :$defined) {
 
     my sub do-sourcery(@blocks, $capture) {
         my $path := $*EXECUTABLE.parent.parent.parent.absolute ~ $*SPEC.dir-sep;
-        @blocks.map: -> $block {
+        @blocks.map(-> $block {
             if $block.cando($capture) {
                 my $file := $block.file;
                 $file := $file.starts-with('SETTING::')
@@ -23,7 +23,7 @@ my sub sourcery(Str:D $call, :$defined) {
                      ).subst(/ ' (' <-[)]>+ ')' $/);
                 $file => $block.line;
             }
-        }
+        }).unique
     }
 
     (my $invocant, my $rest) = $call.split('.', 2);
@@ -192,7 +192,7 @@ deal to me!
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2022 Elizabeth Mattijsen
+Copyright 2022, 2023 Elizabeth Mattijsen
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
