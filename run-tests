@@ -37,7 +37,8 @@ sub process($proc) {
 
 sub install() {
     my $proc := run "zef", "install", ".", "--verbose", :out,:err,:merge;
-    process($proc);
+    say $proc.out.slurp;
+#    process($proc);
 }
 
 sub test-dir($dir) {
