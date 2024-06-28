@@ -30,7 +30,7 @@ sub process($proc) {
             }
         }
         else {
-            say "No output received, exit-code $proc.exitcode() ($proc.signal()):\n$proc-os-error()";
+            say "No output received, exit-code $proc.exitcode() ($proc.signal()):\n$proc.os-error()";
         }
     }
 }
