@@ -36,7 +36,8 @@ sub process($proc) {
 }
 
 sub install() {
-    my $proc := run "zef.bat", "install", ".", "--verbose", "--/test", :out,:err,:merge;
+    my $zef  := $*DISTRO.is-win ?? 'zef.bat' !! 'zef';
+    my $proc := run $zef, "install", ".", "--verbose", "--/test", :out,:err,:merge;
     process($proc);
 }
 
