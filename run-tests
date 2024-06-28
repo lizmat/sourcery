@@ -30,15 +30,14 @@ sub process($proc) {
             }
         }
         else {
-            say "No output received, exit-code $proc.exitcode() ($proc.signal())";
+            say "No output received, exit-code $proc.exitcode() ($proc.signal()):\n$proc-os-error()";
         }
     }
 }
 
 sub install() {
     my $proc := run "zef", "install", ".", "--verbose", "--/test", :out,:err,:merge;
-    say $proc.out.slurp;
-#    process($proc);
+    process($proc);
 }
 
 sub test-dir($dir) {
