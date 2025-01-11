@@ -1,0 +1,106 @@
+=begin pod
+
+=head1 NAME
+
+sourcery - Turn a sub / method call into file(s) / linenumbers(s)
+
+=head1 SYNOPSIS
+
+=begin code :lang<raku>
+
+use sourcery;
+
+.say for sourcery '"42".Int';   # show where a Str gets converted to Int
+
+.say for sourcery 'say "foo"';  # show where strings are being said
+say needle 'say "foo"';         # 'sub say'
+
+.say for sourcery 'Str.Int', :defined;  # instantiate type object
+say needle 'Str.Int';           # 'method Int'
+
+use Edit::Files;
+
+edit-files sourcery '42.base("beer")';  # go see where this easter egg lives
+
+=end code
+
+=head1 DESCRIPTION
+
+The sourcery module exports a two subroutines:
+
+=item sourcery
+=item needle
+
+=head1 EXPORTED SUBROUTINES
+
+Both subroutines are exported by default.
+
+=head2 sourcery
+
+The C<sourcery> subroutine converts a string consisting of the code of
+a subroutine or method call, to zero or more file / line-number pairs.
+Which can then be displayed or used as input to go inspect / edit those
+files.
+
+The C<sourcery> subroutine also takes a single named argument: C<:defined>.
+If specified, will instantiate any type object used as an invocant, so that
+it will match C<class:D:> constraints in dispatching (see e.g. the
+difference between C<"Str.Int"> and C<"Str.Int", :defined>.
+
+Inspired by Zoffix's L<CoreHackers::Sourcery|https://raku.land/zef:raku-community-modules/CoreHackers::Sourcery>
+module, with the following differences:
+
+=item generates local file locations instead of URLs
+=item not limited to core code, could be used on any loaded codebase
+
+=head2 needle
+
+The C<needle> subroutine takes the same string as with C<sourcery> but
+instead returns a string that can serve as a pattern for highlighting
+the actual sub / method in the file / line that is being returned.
+
+=head1 SELECTIVE IMPORTING
+
+=begin code :lang<raku>
+
+use sourcery <sourcery>;  # only export sub sourcery
+
+=end code
+
+By default all functions are exported.  But you can limit this to
+the functions you actually need by specifying the names in the C<use>
+statement.
+
+To prevent name collisions and/or import any subroutine with a more
+memorable name, one can use the "original-name:known-as" syntax.  A
+semi-colon in a specified string indicates the name by which the subroutine
+is known in this distribution, followed by the name with which it will be
+known in the lexical context in which the C<use> command is executed.
+
+=head1 CAVEATS
+
+Modules that have been loaded from an installation, will refer to the
+location inside the repository where the original source files are
+being kept.  These files are considered immutable and should not be
+changed.
+
+=head1 AUTHOR
+
+Elizabeth Mattijsen <liz@raku.rocks>
+
+Source can be located at: https://github.com/lizmat/sourcery .
+Comments and Pull Requests are welcome.
+
+If you like this module, or what I’m doing more generally, committing to a
+L<small sponsorship|https://github.com/sponsors/lizmat/>  would mean a great
+deal to me!
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2022, 2023, 2025 Elizabeth Mattijsen
+
+This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
+
+=end pod
+
+# vim: expandtab shiftwidth=4
